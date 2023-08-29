@@ -2,7 +2,7 @@ import React from "react";
 
 const DeliveryOrderComp = ({ order }) => {
   return (
-    <div className="rounded border p-2 start gap-2 flex-wrap w-100">
+    <div className="rounded border p-2 start gap-2 flex-wrap w-100 mb-2">
       <img
         src={order.qrImage}
         style={{ width: "150px", height: "150px", objectFit: "contain" }}

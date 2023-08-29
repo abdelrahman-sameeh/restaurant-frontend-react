@@ -27,15 +27,20 @@ import UpdateOneCouponPage from "./pages/Coupon/UpdateOneCouponPage";
 import DeliveryOrdersPage from "./pages/Delivery/DeliveryOrdersPage";
 import ScanOrderDeliveryPage from "./pages/Delivery/ScanOrderDeliveryPage";
 import DeliverySidebarComp from "./components/Delivery/DeliverySidebarComp";
+import { ToastContainer } from "react-toastify";
+import ChangePasswordPage from "./pages/Auth/ChangePasswordPage";
+import UpdateOneMealPage from "./pages/Meal/UpdateOneMealPage";
 
 const App = () => {
+  // get user
+  let user;
+  if (localStorage.user) user = JSON.parse(localStorage.user);
+
   return (
     <div className="app" id="app">
-      {/* <AdminSidebarComp />
-      <UserSidebarComp /> */}
-      <DeliverySidebarComp />
-    
-
+      {user && user.role === "admin" ? <AdminSidebarComp /> : ""}
+      {user && user.role === "user" ? <UserSidebarComp /> : ""}
+      {user && user.role === "delivery" ? <DeliverySidebarComp /> : ""}
       <Routes>
         {/* not auth */}
         <Route path="/register" element={<RegisterPage />} />
@@ -51,20 +56,23 @@ const App = () => {
         <Route path="/verifyResetCode" element={<VerifyResetCodePage />} />
         <Route path="/setNewPassword" element={<SetNewPasswordPage />} />
         <Route path="/profile" element={<UserProfilePage />} />
-
+        <Route path="/changePassword" element={<ChangePasswordPage />} />
+        <Route path="/updateUserInfo" element={<UpdateUserInfoPage />} />
+        
         {/* user */}
         <Route path="/user/cart" element={<CartPage />} />
-        <Route path="/user/orders" element={<UserOrdersPage />} />
         <Route path="/user/addAddress" element={<UserAddAddress />} />
         <Route path="/user/addresses" element={<UserAddresses />} />
         <Route path="/user/favorite" element={<UserFavoritePage />} />
-        <Route path="/user/updateUserInfo" element={<UpdateUserInfoPage />} />
+        <Route path="/user/orders" element={<UserOrdersPage />} />
         <Route path="/contactUs" element={<ContactUsPage />} />
 
         {/* admin */}
         <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/admin/addMeal" element={<AddMealPage />} />
+        <Route path="/meal/update/:id" element={<UpdateOneMealPage />} />
+        <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
         <Route path="/admin/addCoupon" element={<AddCouponPage />} />
         <Route path="/admin/getAllCoupons" element={<GetAllCouponsPage />} />
         <Route path="/admin/coupon/:id" element={<UpdateOneCouponPage />} />
@@ -72,9 +80,8 @@ const App = () => {
         {/* delivery */}
         <Route path="/delivery/orders" element={<DeliveryOrdersPage />} />
         <Route path="/delivery/scanOrder" element={<ScanOrderDeliveryPage />} />
-
-
       </Routes>
+      <ToastContainer />
     </div>
   );
 };

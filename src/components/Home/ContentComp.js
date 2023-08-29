@@ -5,14 +5,19 @@ import MenuComponent from "./MenuComp";
 import MealContainer from "./MealContainer";
 
 const ContentComponent = () => {
+  let user;
+  if (localStorage.user) user = JSON.parse(localStorage.user);
+
   return (
     <div className="mt-4">
       {/* header */}
-      <div className="header-app d-flex justify-content-between align-items-center">
-        <div className="name flex-1" style={{ width: "fit-content" }}>
-          مرحبا احمد
-        </div>
-        <div className="search">
+      <div className="header-app d-flex justify-content-between align-items-center gap-5">
+        {user && (
+          <div className="name " style={{ width: "fit-content" }}>
+            مرحبا {user.name}
+          </div>
+        )}
+        <div className="search flex-1">
           <input
             type="search"
             className="form-control"

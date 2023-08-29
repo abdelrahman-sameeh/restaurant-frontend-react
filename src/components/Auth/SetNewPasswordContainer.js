@@ -1,7 +1,17 @@
 import React from "react";
 import CurrentLocation from "../Utility/CurrentLocation";
+import SetNewPasswordAfterForgetHook from "../../CustomHook/Auth/SetNewPasswordAfterForgetHook";
+import { Spinner } from "react-bootstrap";
 
 const SetNewPasswordContainer = () => {
+  const [
+    password,
+    loading,
+    isPress,
+    handleChangePassword,
+    handleSetNewPassword,
+  ] = SetNewPasswordAfterForgetHook();
+
   return (
     <div className="container">
       <CurrentLocation current={"تغير كلمة المرور"} />
@@ -16,10 +26,21 @@ const SetNewPasswordContainer = () => {
           <label htmlFor="exampleInputEmail" className="form-label">
             كلمة المرور الجديدة
           </label>
-          <input type="email" className="form-control" id="exampleInputEmail" />
+          <input
+            value={password}
+            onChange={handleChangePassword}
+            type="password"
+            className="form-control"
+            id="exampleInputEmail"
+          />
         </div>
-        <button type="submit" className="btn special-btn">
+        <button
+          onClick={handleSetNewPassword}
+          type="submit"
+          className="btn special-btn start gap-1"
+        >
           حفظ
+          {loading && isPress && <Spinner variant="light" animation="border" />}
         </button>
       </form>
     </div>

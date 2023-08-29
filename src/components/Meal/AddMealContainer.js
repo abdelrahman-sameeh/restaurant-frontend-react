@@ -2,10 +2,33 @@ import React from "react";
 import AdminSidebarComp from "../Admin/AdminSidebarComp";
 import NavbarAppComponent from "../Utility/NavbarAppComp";
 import CurrentLocation from "../Utility/CurrentLocation";
-import { Row } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import upload from "../../images/upload.png";
+import AddMealHook from "../../CustomHook/Meal/AddMealHook";
 
 const AddMealContainer = () => {
+  const [
+    loading,
+    isPress,
+    image,
+    selectedFile,
+    title,
+    details,
+    sizes,
+    category,
+    allCategories,
+    price,
+    handleChangeImage,
+    handleChangeTitle,
+    handleChangeDetails,
+    handleChangeSize,
+    handleChangeCategory,
+    handleChangePrice,
+    handleDeleteSize,
+    handleClearSelected,
+    main,
+  ] = AddMealHook();
+
   return (
     <>
       <div className="navbar-app">
@@ -20,7 +43,7 @@ const AddMealContainer = () => {
             <div className="mt-3">
               <label htmlFor="meal-image">
                 <img
-                  src={upload}
+                  src={image}
                   style={{
                     width: "70px",
                     height: "70px",
@@ -30,7 +53,16 @@ const AddMealContainer = () => {
                   alt=""
                 />
               </label>
+              {selectedFile && (
+                <span
+                  onClick={handleClearSelected}
+                  className="btn special-btn me-2 px-2"
+                >
+                  x
+                </span>
+              )}
               <input
+                onChange={handleChangeImage}
                 id="meal-image"
                 className="form-control d-none"
                 type="file"
@@ -38,35 +70,97 @@ const AddMealContainer = () => {
             </div>
             <div className="mt-3">
               <label htmlFor="meal-title">اسم الوجبة</label>
-              <input id="meal-title" className="form-control" type="text" />
+              <input
+                value={title}
+                onChange={handleChangeTitle}
+                id="meal-title"
+                className="form-control"
+                type="text"
+              />
             </div>
             <div className="mt-3">
               <label htmlFor="meal-details">وصف الوجبة</label>
-              <input id="meal-details" className="form-control" type="text" />
+              <input
+                value={details}
+                onChange={handleChangeDetails}
+                id="meal-details"
+                className="form-control"
+                type="text"
+              />
             </div>
 
             <div className="mt-3">
               <label htmlFor="meal-sizes">الاحجام المتاحة</label>
-              <select id="meal-sizes" className="form-control">
+              <select
+                onChange={handleChangeSize}
+                id="meal-sizes"
+                className="form-control"
+              >
+                <option value="0"> حدد الاحجام المتاحة </option>
                 <option value="small">حجم صغير (Small)</option>
                 <option value="medium">حجم متوسط (Medium)</option>
                 <option value="large">حجم كبير (Large)</option>
               </select>
             </div>
 
+            {sizes && sizes.length ?
+              <div className="sizes mt-1">
+                (
+                {sizes.map((size, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <span
+                        onClick={() => handleDeleteSize(size)}
+                        style={{ cursor: "pointer" }}
+                        className="mx-1 size"
+                      >
+                        {size}
+                      </span>
+                      {/* add pipeline between sizes */}
+                      {index < sizes.length - 1 && " | "}
+                    </React.Fragment>
+                  );
+                })}
+                )
+              </div> : ''
+            }
+
             <div className="mt-3">
               <label htmlFor="meal-category"> اختر تصنيف </label>
-              <select id="meal-category" className="form-control">
-                <option value=""></option>
+              <select
+                onChange={handleChangeCategory}
+                value={category}
+                id="meal-category"
+                className="form-control"
+              >
+                <option value="0"> اختر تصنيف </option>
+                {allCategories &&
+                  allCategories.map((category) => {
+                    return (
+                      <option key={category._id} value={category._id}>
+                        {category.title}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
 
             <div className="mt-3">
               <label htmlFor="meal-price">السعر</label>
-              <input id="meal-price" className="form-control" type="number" />
+              <input
+                value={price}
+                onChange={handleChangePrice}
+                id="meal-price"
+                className="form-control"
+                type="number"
+              />
             </div>
-            
-            <button className="btn special-btn mt-2">اضافة</button>
+            <button onClick={main} className="btn special-btn mt-2 start gap-1">
+              اضافة
+              {loading && isPress && (
+                <Spinner variant="light" animation="border" />
+              )}
+            </button>
           </form>
         </div>
       </Row>

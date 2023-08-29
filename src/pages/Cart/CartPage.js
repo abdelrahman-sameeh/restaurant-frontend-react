@@ -2,10 +2,13 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import CurrentLocation from "../../components/Utility/CurrentLocation";
 import NavbarAppComponent from "../../components/Utility/NavbarAppComp";
-import MealComponent from "../../components/Home/MealComp";
-import UserSidebarComp from "../../components/User/UserSidebarComp";
+import GetLoggedUserCartHook from "../../CustomHook/Cart/GetLoggedUserCartHook";
+import MealCartComp from "../../components/Cart/MealCartComp";
 
 const CartPage = () => {
+  const [cartItems, total, totalAfterDiscount] = GetLoggedUserCartHook();
+
+
   return (
     <div className="mt-3">
       <div className="navbar-app">
@@ -14,11 +17,11 @@ const CartPage = () => {
       <div className="row-app ">
         <div className="container">
           <CurrentLocation current={"السلة"} />
-          <Row>
+          <Row className="gap-3">
             {/* add to orders */}
-            <Col lg="4" md="4" sm="12" className="p-0">
+            <Col lg="12" md="12" sm="12" className="p-0">
               <div
-                className="px-3 py-2 rounded"
+                className="px-3 py-3 rounded"
                 style={{ backgroundColor: "var(--secondary-color)" }}
               >
                 <div className="d-flex mb-2 gap-2">
@@ -36,15 +39,22 @@ const CartPage = () => {
                     تطبيق{" "}
                   </button>
                 </div>
-
-                <div className="between fw-bold mb-2">
-                  <span>السعر الكلى</span>
-                  <span style={{ color: "var(--price-color)" }}>50$</span>
-                </div>
-                <div className="between fw-bold mb-2">
-                  <span>السعر بعد الخصم</span>
-                  <span style={{ color: "var(--price-color)" }}>49$</span>
-                </div>
+                {total ? (
+                  <div className="start gap-2 fw-bold mb-2">
+                    <span>السعر الكلى</span>
+                    <span style={{ color: "var(--price-color)" }}>{total}</span>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {totalAfterDiscount ? (
+                  <div className="start gap-2 fw-bold mb-2">
+                    <span>السعر بعد الخصم</span>
+                    <span style={{ color: "var(--price-color)" }}>49$</span>
+                  </div>
+                ) : (
+                  ""
+                )}
 
                 <button
                   style={{ padding: "4px 7px", fontSize: "16px" }}
@@ -55,11 +65,13 @@ const CartPage = () => {
               </div>
             </Col>
             {/* meals */}
-            <Col lg="8" md="8" sm="12" className="p-0">
-              <div className="center flex-wrap gap-2">
-                <MealComponent />
-                <MealComponent />
-                <MealComponent />
+            <Col lg="12" md="12" sm="12" className="p-0">
+              <div className="start flex-wrap gap-2 align-stretch">
+                {cartItems && cartItems.length
+                  ? cartItems.map((item) => (
+                      <MealCartComp key={item._id} item={item} meal={item.product} />
+                    ))
+                  : ""}
               </div>
             </Col>
           </Row>

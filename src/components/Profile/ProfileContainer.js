@@ -4,8 +4,11 @@ import NavbarAppComponent from "../Utility/NavbarAppComp";
 import CurrentLocation from "../Utility/CurrentLocation";
 import { Link } from "react-router-dom";
 import { Row } from "react-bootstrap";
+import ProfileHook from "../../CustomHook/Profile/ProfileHook";
 
 const ProfileContainer = () => {
+  const [user] = ProfileHook();
+
   return (
     <>
       <div className="navbar-app">
@@ -14,28 +17,45 @@ const ProfileContainer = () => {
       <Row className="row-app">
         <div className="container">
           <CurrentLocation current={"الصفحة الشخصية"} />
-          <div
-            className="user-info  py-3 px-2 rounded d-flex justify-content-between align-items-start"
-            style={{ backgroundColor: "var(--secondary-color)" }}
-          >
-            <div>
-              <div className="name"> عبدالرحمن </div>
-              <div className="email"> email@gmail.com </div>
-              <div className="phone"> 01003982268 </div>
+          {user ? (
+            <div
+              className="user-info  py-3 px-2 rounded d-flex justify-content-between align-items-start flex-wrap"
+              style={{ backgroundColor: "var(--secondary-color)" }}
+            >
+              <div>
+                <div className="name"> {user.name} </div>
+                <div className="email"> {user.email} </div>
+                <div className="phone"> {user.phone} </div>
+              </div>
+              <Link to="/updateUserInfo" className="btn special-btn">
+                تعديل
+              </Link>
             </div>
-            <Link to="/user/updateUserInfo" className="btn special-btn">
-              تعديل
-            </Link>
-          </div>
-
-          <div className="d-flex mt-3 gap-2">
-            <Link to="/user/addAddress" className="btn special-btn">
-              اضافة عنوان
-            </Link>
-            <Link to="/user/addresses" className="btn special-btn">
-              العناوين الشخصية
-            </Link>
-          </div>
+          ) : (
+            <h2 className="text-center fw-bold">
+              {" "}
+              لم يتم تسجيل الدخول من فضلك سجل الدخول{" "}
+            </h2>
+          )}
+          {user && (
+            <div className="d-flex mt-3 gap-1 flex-wrap">
+              {user && user.role === "user" ? (
+                <>
+                  <Link to="/user/addAddress" className="btn special-btn">
+                    اضافة عنوان
+                  </Link>
+                  <Link to="/user/addresses" className="btn special-btn">
+                    العناوين الشخصية
+                  </Link>
+                </>
+              ) : (
+                ""
+              )}
+              <Link to="/changePassword" className="btn special-btn">
+                تغير كلمة المرور
+              </Link>
+            </div>
+          )}
         </div>
       </Row>
     </>

@@ -22,6 +22,14 @@ const AdminSidebarComp = () => {
           </Link>
         </li>
 
+
+        <li className="border-bottom">
+          <Link className="btn w-100 py-3 fw-bold " to="/admin/addCategory">
+            {" "}
+            اضافة تصنيف جديدة{" "}
+          </Link>
+        </li>
+
         <li className="border-bottom">
           <Link className="btn w-100 py-3 fw-bold " to="/admin/addMeal">
             {" "}

@@ -1,7 +1,17 @@
 import React from "react";
 import CurrentLocation from "../Utility/CurrentLocation";
+import VerifyResetCodeHook from "../../CustomHook/Auth/VerifyResetCodeHook";
+import { Spinner } from "react-bootstrap";
 
 const VerifyResetCodeContainer = () => {
+  const [
+    passwordResetCode,
+    loading,
+    isPress,
+    handleChangeResetCode,
+    handleVerifyResetCode,
+  ] = VerifyResetCodeHook();
+
   return (
     <div className="container">
       <CurrentLocation current={"تأكيد الكود المرسل"} />
@@ -13,13 +23,22 @@ const VerifyResetCodeContainer = () => {
         }}
       >
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail" className="form-label">
+          <label htmlFor="pass-reset-code" className="form-label">
             الكود
           </label>
-          <input type="email" className="form-control" id="exampleInputEmail" />
+          <input
+            value={passwordResetCode}
+            onChange={handleChangeResetCode}
+            type="text"
+            className="form-control"
+            id="pass-reset-code"
+          />
         </div>
-        <button type="submit" className="btn special-btn">
+        <button onClick={handleVerifyResetCode} type="submit" className="btn special-btn start gap-1">
           تأكيد الكود
+          {
+            loading && isPress && <Spinner variant="light" animation="border" />
+          }
         </button>
       </form>
     </div>
