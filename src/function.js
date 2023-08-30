@@ -17,6 +17,8 @@ document.addEventListener("click", (e) => {
     localStorage.removeItem("token");
     window.location.reload();
   }
+
+
 });
 
 // reset un important data in local storage

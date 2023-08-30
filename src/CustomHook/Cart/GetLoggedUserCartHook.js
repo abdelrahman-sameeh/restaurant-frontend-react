@@ -22,7 +22,7 @@ const GetLoggedUserCartHook = () => {
 
 
   if(response && response.data && response.data.totalAfterDiscount){
-    totalAfterDiscount = response.data.totalAfterDiscount
+    totalAfterDiscount = response.data.totalAfterDiscount.toFixed(2)
   }
 
 

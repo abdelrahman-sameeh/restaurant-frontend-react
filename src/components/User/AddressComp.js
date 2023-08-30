@@ -1,36 +1,44 @@
 import React from "react";
+import DeleteAddressHook from "../../CustomHook/User/DeleteAddressHook";
+import { Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AddressComp = ({ address }) => {
+  const [loading, isPress, deleteAddress] = DeleteAddressHook();
+
   return (
     <div
-      className="p-3 mt-2 d-flex justify-content-between align-items-start rounded" 
+      className="p-3 mt-2 d-flex justify-content-between align-items-start rounded"
       style={{ backgroundColor: "var(--secondary-color)" }}
     >
       <div className="address-info">
         <div>
-          <label className="fw-bold" htmlFor="">العنوان :</label>
-          <span> عنوان 1 </span>
+          <span className="fw-bold">العنوان :</span>
+          <span> {address.alias} </span>
         </div>
         <div>
-          <label className="fw-bold" htmlFor=""> تفاصيل العنوان : </label>
-          <span> هذه عباره عن تفاصيل العنوان هذه عباره عن تفاصيل العنوان هذه عباره عن تفاصيل العنوان هذه عباره عن تفاصيل العنوان  </span>
+          <span className="fw-bold"> تفاصيل العنوان : </span>
+          <span> {address.details} </span>
         </div>{" "}
         <div>
-          <label className="fw-bold" htmlFor="">المدينة : </label>
-          <span>القاهرة</span>
+          <span className="fw-bold">المدينة : </span>
+          <span> {address.city} </span>
         </div>{" "}
         <div>
-          <label className="fw-bold" htmlFor="">الهاتف : </label>
-          <span>01556577857</span>
+          <span className="fw-bold">الهاتف : </span>
+          <span> {address.phone} </span>
         </div>{" "}
         <div>
-          <label className="fw-bold" htmlFor="">الرقم البريدى : </label>
-          <span>123123</span>
+          <span className="fw-bold">الرقم البريدى : </span>
+          <span> {address.postalCode} </span>
         </div>
       </div>
       <div className="controls d-flex">
-        <button className="btn special-btn">تعديل</button>
-        <button className="btn special-btn me-1">حذف</button>
+        <Link to={`/user/updateAddress/${address._id}`} className="btn special-btn">تعديل</Link>
+        <button onClick={()=>deleteAddress(address._id)} className="btn special-btn me-1 start gap-1">
+          حذف
+          {loading && isPress && <Spinner variant="light" animation="border" />}
+        </button>
       </div>
     </div>
   );

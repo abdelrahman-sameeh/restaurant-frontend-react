@@ -11,7 +11,7 @@ import DeleteMealFromCartHook from "../../CustomHook/Cart/DeleteMealFromCartHook
 let user;
 if (localStorage.user) user = JSON.parse(localStorage.user);
 
-const MealCartComp = ({ meal, item }) => {
+const MealCartComp = ({ meal, item, classes }) => {
   const [handleAddMealToFav] = AddMealToFavHook();
   const [handleRemoveMealFromFav] = RemoveMealFromFavHook();
   const [updateLoading, updateIsPress, size, count, handleChangeSize, handleChangeCount, main] =
@@ -21,16 +21,16 @@ const MealCartComp = ({ meal, item }) => {
 
   return (
     <div
-      className="meal flex-1 box start rounded p-2 gap-2"
+      className={`meal flex-1 box start rounded p-2 gap-1 ${classes}`}
       style={{
         backgroundColor: "var(--main-color)",
-        minWidth: "285px",
+        minWidth: "300px",
         maxWidth: "515px",
       }}
     >
       <div
         className="image flex-1"
-        style={{ minWidth: "150px", maxWidth: "200px" }}
+        style={{minWidth: "130px" }}
       >
         <Link to={`/meal/${meal._id}`}>
           <img className="w-100 h-100" src={meal.image} alt="" />

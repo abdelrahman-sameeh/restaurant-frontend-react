@@ -6,8 +6,10 @@ import {
   faEnvelope,
   faGear,
   faHeart,
+  faHome,
   faMoon,
   faUser,
+  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -17,13 +19,18 @@ const NavbarAppComponent = () => {
   let user;
   if (localStorage.user) user = JSON.parse(localStorage.user);
 
+
   return (
     <div className="d-flex align-items-start flex-column gap-2 pt-5">
       <Link data-tooltip="تغير الوضع" className="icon mb-3">
         <FontAwesomeIcon icon={faMoon} />
       </Link>
 
-      <Link data-tooltip="الرئيسية" to="/" className="icon active">
+      <Link data-tooltip="الرئيسية" to="/" className="icon">
+        <FontAwesomeIcon icon={faHome} />
+      </Link>
+
+      <Link data-tooltip="قائمة الطعام" to="/menu" className="icon">
         <FontAwesomeIcon icon={faBookOpen} />
       </Link>
 
@@ -36,7 +43,11 @@ const NavbarAppComponent = () => {
 
       {/* for delivery */}
       {user && user.role === "delivery" && (
-        <Link data-tooltip="ادارة الطلبات" to="/delivery/orders" className="icon">
+        <Link
+          data-tooltip="ادارة الطلبات"
+          to="/delivery/orders"
+          className="icon"
+        >
           <FontAwesomeIcon icon={faClipboard} />
         </Link>
       )}
@@ -65,12 +76,18 @@ const NavbarAppComponent = () => {
             <FontAwesomeIcon icon={faUser} />
           </Link>
           <Link data-tooltip="تسجيل الخروج" to="/" className="icon logout">
-            <FontAwesomeIcon
-              style={{ transform: "rotate(180deg)" }}
-              icon={faArrowRightFromBracket}
-            />
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
           </Link>
         </>
+      )}
+
+      {!user && (
+        <Link data-tooltip="تسجيل الدخول" to="/login" className="icon">
+          <FontAwesomeIcon
+            style={{ transform: "rotate(180deg)" }}
+            icon={faArrowRightFromBracket}
+          />
+        </Link>
       )}
     </div>
   );

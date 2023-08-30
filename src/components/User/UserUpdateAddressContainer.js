@@ -5,6 +5,7 @@ import CurrentLocation from "../Utility/CurrentLocation";
 import { Link } from "react-router-dom";
 import AddAddressHook from "../../CustomHook/User/AddAddressHook";
 import { Spinner } from "react-bootstrap";
+import UpdateAddressHook from "../../CustomHook/User/UpdateAddressHook";
 
 const UserAddAddressContainer = () => {
 
@@ -22,7 +23,7 @@ const UserAddAddressContainer = () => {
     handleChangeCity,
     handleChangePostalCode,
     main
-  ] = AddAddressHook()
+  ] = UpdateAddressHook()
 
 
   return (
@@ -58,7 +59,7 @@ const UserAddAddressContainer = () => {
               <input value={postalCode} onChange={handleChangePostalCode} type="text" className="form-control mt-الرقم البريدى" />
             </div>
             <button onClick={main} className="btn special-btn mt-3 mb-2 start gap-1">
-              اضافة
+              تعديل
               {loading && isPress && <Spinner variant="light" animation="border" />}
             </button>
           </form>

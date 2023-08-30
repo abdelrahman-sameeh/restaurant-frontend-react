@@ -68,6 +68,7 @@
 
 .align-stretch {
   align-items: stretch !important;
+  /* text-decoration: line-through; */
 }
 
 .rounded-full {
@@ -220,6 +221,21 @@ select:focus {
 }
 
 
+.icon{
+    position: relative;
+}
+
+.icon::after{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  content: '';
+}
+
+
 /* Home => meal */
 
 .meal {
@@ -229,7 +245,7 @@ select:focus {
 
 .home .meal .image {
   overflow: hidden;
-  width: 200px;
+  width: 150px;
   height: 150px;
 }
 
@@ -360,7 +376,7 @@ select:focus {
 }
 
 
-form {
+.form {
   background-color: var(--secondary-color);
   box-shadow: var(--main-box-shadow);
   padding: 1rem;

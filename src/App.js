@@ -30,6 +30,8 @@ import DeliverySidebarComp from "./components/Delivery/DeliverySidebarComp";
 import { ToastContainer } from "react-toastify";
 import ChangePasswordPage from "./pages/Auth/ChangePasswordPage";
 import UpdateOneMealPage from "./pages/Meal/UpdateOneMealPage";
+import UserUpdateAddressPage from './pages/User/UserUpdateAddressPage'
+import SidebarComponent from "./components/Home/SidebarComp";
 
 const App = () => {
   // get user
@@ -63,6 +65,8 @@ const App = () => {
         <Route path="/user/cart" element={<CartPage />} />
         <Route path="/user/addAddress" element={<UserAddAddress />} />
         <Route path="/user/addresses" element={<UserAddresses />} />
+        <Route path="/user/updateAddress/:id" element={<UserUpdateAddressPage />} />
+
         <Route path="/user/favorite" element={<UserFavoritePage />} />
         <Route path="/user/orders" element={<UserOrdersPage />} />
         <Route path="/contactUs" element={<ContactUsPage />} />
