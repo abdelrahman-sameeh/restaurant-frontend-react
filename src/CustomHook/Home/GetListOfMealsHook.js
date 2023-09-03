@@ -4,9 +4,17 @@ import { getListOfMeals } from "../../redux/actions/mealActions";
 
 const GetListOfMealsHook = () => {
 
+  const [loading, setLoading] = useState(true)
+  const [isPress, setIsPress] = useState(false)
+
+
   const dispatch = useDispatch();
   const render = async () => {
+    setLoading(true)
+    setIsPress(true)
     await dispatch(getListOfMeals());
+    setLoading(false)
+    setIsPress(false)
   };
 
   useEffect(() => {
@@ -20,7 +28,7 @@ const GetListOfMealsHook = () => {
     meals = response.data.data;
   }
 
-  return [ meals];
+  return [loading, isPress ,meals];
 };
 
 export default GetListOfMealsHook;

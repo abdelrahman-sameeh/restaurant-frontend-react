@@ -2,6 +2,7 @@ import {
   ADD_MEAL,
   DELETE_ONE_MEAL,
   GET_LIST_OF_MEALS,
+  GET_LIST_OF_MEALS_IN_CATEGORY,
   GET_ONE_MEAL,
   UPDATE_ONE_MEAL,
 } from "../type";
@@ -12,6 +13,7 @@ const initialState = {
   deleteOneMeal: [],
   getOneMeal: [],
   updateOneMeal: [],
+  getListOfMealsCategory: [],
 };
 
 export const mealReducer = (state = initialState, action) => {
@@ -40,6 +42,11 @@ export const mealReducer = (state = initialState, action) => {
       return {
         ...state,
         updateOneMeal: action.payload,
+      };
+    case GET_LIST_OF_MEALS_IN_CATEGORY:
+      return {
+        ...state,
+        getListOfMealsCategory: action.payload,
       };
     default:
       return state;

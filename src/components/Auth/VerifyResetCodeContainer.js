@@ -15,13 +15,7 @@ const VerifyResetCodeContainer = () => {
   return (
     <div className="container">
       <CurrentLocation current={"تأكيد الكود المرسل"} />
-      <form
-        className="p-3 rounded"
-        style={{
-          backgroundColor: "var(--secondary-color)",
-          boxShadow: "var(--main-box-shadow)",
-        }}
-      >
+      <form className="p-3 form">
         <div className="mb-3">
           <label htmlFor="pass-reset-code" className="form-label">
             الكود
@@ -34,11 +28,13 @@ const VerifyResetCodeContainer = () => {
             id="pass-reset-code"
           />
         </div>
-        <button onClick={handleVerifyResetCode} type="submit" className="btn special-btn start gap-1">
+        <button
+          onClick={handleVerifyResetCode}
+          type="submit"
+          className="btn special-btn start gap-1"
+        >
           تأكيد الكود
-          {
-            loading && isPress && <Spinner variant="light" animation="border" />
-          }
+          {loading && isPress && <Spinner variant="light" animation="border" />}
         </button>
       </form>
     </div>

@@ -23,7 +23,7 @@ const ChangePasswordContainer = () => {
       <div className="row-app">
         <div className="container">
           <CurrentLocation current={"تغير كلمة المرور"} />
-          <form>
+          <form className="form">
             <div className="mb-3">
               <label htmlFor="old-password" className="form-label">
                 كلمة المرور القديمة *

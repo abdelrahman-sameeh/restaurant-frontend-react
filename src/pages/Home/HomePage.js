@@ -16,7 +16,7 @@ const HomePage = () => {
         <NavbarAppComponent />
       </div>
       <Row className="row-app">
-        <Col style={{ backgroundColor: "var(--secondary-color)" }}>
+        <Col >
           <ContentComponent />
         </Col>
         {user && user.role === "user" ? (

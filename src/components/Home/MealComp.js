@@ -8,58 +8,84 @@ import { Spinner } from "react-bootstrap";
 import AddMealToFavHook from "../../CustomHook/Fav/AddMealToFavHook";
 import RemoveMealFromFavHook from "../../CustomHook/Fav/RemoveMealFromFavHook";
 import AddMealToCartHook from "../../CustomHook/Cart/AddMealToCartHook";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 let user;
 if (localStorage.user) user = JSON.parse(localStorage.user);
 
-const MealComponent = ({ meal }) => {
+const MealComponent = ({ meal, specific }) => {
   const [loading, isPress, deleteMeal] = DeleteMealHook();
   const [handleAddMealToFav] = AddMealToFavHook();
   const [handleRemoveMealFromFav] = RemoveMealFromFavHook();
-  const [size, count, handleChangeSize, handleChangeCount, main] = AddMealToCartHook()
+  const [size, count, handleChangeSize, handleChangeCount, main] =
+    AddMealToCartHook();
 
   return (
     <div
-      className="meal flex-1 box start rounded p-2 gap-2"
+      className={`meal flex-1 box start rounded p-2 gap-2
+      ${specific && "specific-meal"} 
+      `}
       style={{
         backgroundColor: "var(--main-color)",
         minWidth: "300px",
         maxWidth: "515px",
       }}
     >
-      <div
-        className="image flex-1"
-        style={{minWidth: "130px" }}
-      >
+      <div className="image flex-1" style={{ minWidth: "130px" }}>
         <Link to={`/meal/${meal._id}`}>
           <img className="w-100 h-100" src={meal.image} alt="" />
         </Link>
       </div>
       <div className="meal-info">
         {/* admin */}
-        {user && user.role === "admin" ? (
-          <div className="controls d-flex gap-1 justify-content-end">
-            <Link to={`/meal/update/${meal._id}`} className="btn special-btn">
-              {" "}
-              تعديل{" "}
-            </Link>
-            <div
-              onClick={() => deleteMeal(meal._id)}
-              className="btn special-btn start gap-1"
-            >
-              حذف
-              {loading && isPress && (
-                <Spinner variant="light" animation="border" />
-              )}
+        <div className="between">
+          <span style={{ fontSize: "16px" }} className="fw-bold">
+            {" "}
+            {+meal.ratingAvg > 0 ? (
+              <span style={{ color: "var(--alt-color)" }}>
+                <FontAwesomeIcon icon={faStar} />
+                {meal.ratingAvg}{" "}
+              </span>
+            ) : null}{" "}
+          </span>
+          {user && user.role === "admin" ? (
+            <div className="controls d-flex gap-1 justify-content-end">
+              <Link to={`/meal/update/${meal._id}`} className="btn special-btn">
+                {" "}
+                تعديل{" "}
+              </Link>
+              <div
+                onClick={() => deleteMeal(meal._id)}
+                className="btn special-btn start gap-1"
+              >
+                حذف
+                {loading && isPress && (
+                  <Spinner variant="light" animation="border" />
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
+          ) : (
+            ""
+          )}
+        </div>
 
         <div className="meal-title text-capitalize fw-bold fs-5">
           {meal.title}
         </div>
+
+        <div
+          style={{
+            color: "var(--main-text-50)",
+            fontSize: "var(--main-fs )",
+          }}
+          className="details"
+        >
+          {meal.details && meal.details.length > 30 && !specific
+            ? meal.details.slice(0, 30) + "..."
+            : meal.details}
+        </div>
+
         <div className="between my-2">
           <div
             style={{ color: "var(--price-color)" }}
@@ -88,23 +114,47 @@ const MealComponent = ({ meal }) => {
           )}
         </div>
 
-        <div className="mb-2">
-          <label htmlFor="meal-sizes">اختر الحجم</label>
-          <select onChange={handleChangeSize} defaultValue={size} id="meal-sizes" className="form-control">
-            <option value="0"> اختر الحجم </option>
-            {meal.size.length &&
-              meal.size.map((size, index) => (
-                <option key={index} value={size} className="text-capitalize">
-                  {size}
-                </option>
-              ))}
-          </select>
-        </div>
+        {user && user.role === "user" ? (
+          <>
+            <div className="mb-2">
+              <label htmlFor="meal-sizes">اختر الحجم</label>
+              <select
+                onChange={handleChangeSize}
+                defaultValue={size}
+                id="meal-sizes"
+                className="form-control"
+              >
+                <option value="0"> اختر الحجم </option>
+                {meal.size.length &&
+                  meal.size.map((size, index) => (
+                    <option
+                      key={index}
+                      value={size}
+                      className="text-capitalize"
+                    >
+                      {size}
+                    </option>
+                  ))}
+              </select>
+            </div>
 
-        <div className="between gap-1 algin-items-start">
-          <input value={count} onChange={handleChangeCount} type="number" className="form-control" placeholder="الكميه" />
-          <button onClick={()=>main(meal._id)} className="btn special-btn ">+</button>
-        </div>
+            <div className="between gap-1 algin-items-start">
+              <input
+                value={count}
+                onChange={handleChangeCount}
+                type="number"
+                className="form-control"
+                placeholder="الكميه"
+              />
+              <button
+                onClick={() => main(meal._id)}
+                className="btn special-btn "
+              >
+                +
+              </button>
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

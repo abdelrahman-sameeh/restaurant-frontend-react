@@ -1,6 +1,13 @@
 import { useInsertDataWithImage } from "../../hook/useInsertData";
 import { useGetData } from "../../hook/useGetData";
-import { ADD_MEAL, DELETE_ONE_MEAL, GET_LIST_OF_MEALS, GET_ONE_MEAL, UPDATE_ONE_MEAL } from "../type";
+import {
+  ADD_MEAL,
+  DELETE_ONE_MEAL,
+  GET_LIST_OF_MEALS,
+  GET_ONE_MEAL,
+  UPDATE_ONE_MEAL,
+  GET_LIST_OF_MEALS_IN_CATEGORY
+} from "../type";
 import { useDeleteData } from "../../hook/useDeleteData";
 import { useUpdateDataWithImage } from "../../hook/useUpdateData";
 
@@ -23,7 +30,7 @@ export const getListOfMeals =
   (queryString = "") =>
   async (dispatch) => {
     try {
-      const response = await useGetData(`/api/v1/meals${queryString}`);
+      const response = await useGetData(`/api/v1/meals?${queryString}`);
       dispatch({
         type: GET_LIST_OF_MEALS,
         payload: response,
@@ -50,7 +57,6 @@ export const deleteOneMeal = (id) => async (dispatch) => {
     });
   }
 };
-
 
 export const getOneMeal = (id) => async (dispatch) => {
   try {
@@ -80,4 +86,21 @@ export const updateOneMeal = (id, data) => async (dispatch) => {
       payload: err.response,
     });
   }
-}
+};
+
+export const getListOfMealsCategory =
+  (queryString = "") =>
+  async (dispatch) => {
+    try {
+      const response = await useGetData(`/api/v1/meals?limit=2&${queryString}`);
+      dispatch({
+        type: GET_LIST_OF_MEALS_IN_CATEGORY,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_LIST_OF_MEALS_IN_CATEGORY,
+        payload: err.response,
+      });
+    }
+  };

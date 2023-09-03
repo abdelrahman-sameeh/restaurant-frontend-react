@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMealToFavorite } from "../../redux/actions/favoriteActions";
 import { notify } from "../../utils/Notification/useNotification";
-import { getListOfMeals } from "../../redux/actions/mealActions";
+import {
+  getListOfMeals,
+  getListOfMealsCategory,
+  getOneMeal,
+} from "../../redux/actions/mealActions";
 import { getLoggedUserFavorite } from "../../redux/actions/favoriteActions";
 import { getLoggedUserCart } from "../../redux/actions/cartAction";
 
@@ -25,12 +29,32 @@ const AddMealToFavHook = () => {
   const renderFavorite = async () => await dispatch(getLoggedUserFavorite());
   const renderCart = async () => await dispatch(getLoggedUserCart());
 
+  const renderMealsCategory = async (_) =>
+    await dispatch(
+      getListOfMealsCategory(
+        `page=${localStorage.mealCategoryPaginationNum}&category=${localStorage.mealCategory}`
+      )
+    );
+
+  const renderSpecificMeal = async () =>
+    await dispatch(getOneMeal(localStorage.specificMeal));
+
   useEffect(() => {
     if (!loading) {
       if (response.status === 200) {
         renderAllMeals();
         renderFavorite();
         renderCart();
+        if (
+          localStorage.mealCategoryPaginationNum &&
+          localStorage.mealCategory
+        ) {
+          renderMealsCategory();
+        }
+        if (localStorage.specificMeal) {
+          renderSpecificMeal();
+        }
+
         notify("تم اضافة الوجبة الى المفضلة", "success");
       }
       if (

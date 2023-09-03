@@ -1,10 +1,12 @@
-import React from 'react'
-import UserFavoriteContainer from '../../components/User/UserFavoriteContainer'
+import React from "react";
+import UserFavoriteContainer from "../../components/User/UserFavoriteContainer";
 
 const UserFavoritePage = () => {
   return (
-    <div className='favorite'><UserFavoriteContainer /></div>
-  )
-}
+    <div className="favorite">
+      <UserFavoriteContainer />
+    </div>
+  );
+};
 
-export default UserFavoritePage
+export default UserFavoritePage;

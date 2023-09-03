@@ -22,7 +22,7 @@ const RegisterContainer = () => {
 
   return (
     <div>
-      <form className="mb-2">
+      <form className="mb-2 form">
         <div className="mb-3">
           <label htmlFor="exampleInputName" className="form-label">
             الاسم *

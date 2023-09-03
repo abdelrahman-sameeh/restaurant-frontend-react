@@ -1,5 +1,5 @@
 import React from "react";
-import OrderContainer from "../../components/Order/OrderContainer";
+import UserOrderContainer from "../../components/Order/UserOrderContainer";
 import CurrentLocation from "../../components/Utility/CurrentLocation";
 import { Row } from "react-bootstrap";
 
@@ -11,7 +11,7 @@ const UserOrdersPage = () => {
           <CurrentLocation current={"ادارة طلباتك"} />
         </div>
       </Row>
-      <OrderContainer />
+      <UserOrderContainer />
     </div>
   );
 };

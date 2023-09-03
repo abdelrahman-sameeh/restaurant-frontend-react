@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoginHook from "../../CustomHook/Auth/LoginHook";
 import { Spinner } from "react-bootstrap";
+import CurrentLocation from "../Utility/CurrentLocation";
 
 const LoginContainer = () => {
   const [
@@ -15,8 +16,9 @@ const LoginContainer = () => {
   ] = LoginHook();
 
   return (
-    <div>
-      <form>
+    <div className="container">
+      <CurrentLocation current={"تسجيل الدخول"} />
+      <form className="form">
         <div className="mb-3">
           <label htmlFor="exampleInputEmail" className="form-label">
             البريد الالكترونى *

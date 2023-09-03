@@ -16,11 +16,7 @@ const SetNewPasswordContainer = () => {
     <div className="container">
       <CurrentLocation current={"تغير كلمة المرور"} />
       <form
-        className="p-3 rounded"
-        style={{
-          backgroundColor: "var(--secondary-color)",
-          boxShadow: "var(--main-box-shadow)",
-        }}
+        className="p-3 form"
       >
         <div className="mb-3">
           <label htmlFor="exampleInputEmail" className="form-label">

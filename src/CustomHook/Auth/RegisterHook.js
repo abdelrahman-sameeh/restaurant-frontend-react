@@ -66,10 +66,11 @@ const RegisterHook = () => {
     const data = {
       name,
       email,
-      phone,
       password,
       confirmPassword,
     };
+
+    if (phone) data.phone = phone;
 
     // dispatch action(register)
     setLoading(true);

@@ -8,6 +8,9 @@ import { favoriteReducer } from "./favoriteReducer";
 import { cartReducer } from "./cartReducer";
 import { addressReducer } from "./addressReducer";
 import { orderReducer } from "./orderReducer";
+import { deliveryReducer } from "./deliveryReducer";
+import { reviewReducer } from "./reviewReducer";
+import { adminReducer } from "./adminReducer";
 
 export const rootReducer = combineReducers({
   Auth: AuthReducer,
@@ -18,5 +21,8 @@ export const rootReducer = combineReducers({
   Favorite: favoriteReducer,
   Cart: cartReducer,
   Address: addressReducer,
-  Order: orderReducer
+  Order: orderReducer,
+  Delivery: deliveryReducer,
+  Review: reviewReducer,
+  Admin: adminReducer
 });

@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavbarAppComponent from "../Utility/NavbarAppComp";
 import { Row } from "react-bootstrap";
 import CurrentLocation from "../Utility/CurrentLocation";
 import DeliveryOrderComp from "./DeliveryOrderComp";
-import { BaseUrl } from "../../api/BaseUrl";
+import GetDeliveryOrdersHook from "../../CustomHook/Delivery/GetDeliveryOrdersHook";
+import Loading from "../Utility/Loading";
+import PaginationComp from "../Utility/PaginationComp";
+import DeliveryPaginationHook from "../../CustomHook/Delivery/DeliveryPaginationHook";
+
+let pagination;
+if (localStorage.pagination) {
+  pagination = JSON.parse(localStorage.pagination);
+}
+
+console.log();
 
 const DeliveryOrdersContainer = () => {
-  const [data, setData] = useState([]);
+  const [loading, isPress, orders] = GetDeliveryOrdersHook();
 
-  const run = async () => {
-    const response = await BaseUrl.get("/api/v1/order");
-    setData(response.data)
-  };
-
-  useEffect(() => {
-    run();
-  }, []);
+  const [paginationLoading, paginationIsPress, getPageNum] =
+    DeliveryPaginationHook();
 
   return (
     <>
@@ -26,11 +30,27 @@ const DeliveryOrdersContainer = () => {
         <div className="container">
           <CurrentLocation current={" الطلبات المراد توصيلها "} />
 
+          {(loading && isPress) || (paginationLoading && paginationIsPress) ? (
+            <Loading />
+          ) : (
+            ""
+          )}
           {/* loop in all orders that delivery user was asked to deliver */}
-          {data && data.data
-            ? data.data.map((order) => <DeliveryOrderComp order={order} />)
-            : null}
-          {/* <DeliveryOrderComp  /> */}
+          {orders && orders.length ? (
+            orders.map((order) => (
+              <DeliveryOrderComp
+                key={order._id}
+                order={order.order}
+                id={order._id}
+              />
+            ))
+          ) : (
+            <h4 className="fw-bold text-center"> لا يوجد طلبات الان </h4>
+          )}
+
+          {pagination && pagination.numberOfPages ? (
+            <PaginationComp onPress={getPageNum} pageCount={pagination.numberOfPages} />
+          ) : null}
         </div>
       </Row>
     </>

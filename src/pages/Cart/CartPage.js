@@ -30,8 +30,10 @@ const CartPage = () => {
   // add order hook
   const [loading, isPress, currentAddress, handleChangeAddress, handleAddOrder] = CreateCashOrderHook();
 
+
+  
   return (
-    <div className="mt-3">
+    <>
       <div className="navbar-app">
         <NavbarAppComponent />
       </div>
@@ -151,7 +153,7 @@ const CartPage = () => {
       }
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

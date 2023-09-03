@@ -3,13 +3,14 @@ import { Col, Row } from "react-bootstrap";
 import Pizza from "../../images/Pizza.jpg";
 import MenuComponent from "./MenuComp";
 import MealContainer from "./MealContainer";
+import { Link } from "react-router-dom";
 
 const ContentComponent = () => {
   let user;
   if (localStorage.user) user = JSON.parse(localStorage.user);
 
   return (
-    <div className="mt-4">
+    <div className={`mt-4 ${ user && user.role === 'user' ?  'content' : null}`}>
       {/* header */}
       <div className="header-app d-flex justify-content-between align-items-center gap-5">
         {user && (
@@ -17,20 +18,20 @@ const ContentComponent = () => {
             مرحبا {user.name}
           </div>
         )}
-        <div className="search flex-1">
+        <Link to='/menu' className="search flex-1">
           <input
             type="search"
             className="form-control"
             placeholder="ادخل كلمه البحث"
           />
-        </div>
+        </Link>
       </div>
       {/* banner */}
       <Row
         style={{
-          backgroundColor: "var(--revert-light)",
+          backgroundColor: "var(--secondary-color)",
           overflow: "hidden",
-          color: "var(--main-color)",
+          color: "var(--main-text-color)",
         }}
         className="banner mt-2 p-2 rounded"
       >

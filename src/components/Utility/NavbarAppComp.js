@@ -4,12 +4,11 @@ import {
   faCartShopping,
   faClipboard,
   faEnvelope,
-  faGear,
   faHeart,
   faHome,
   faMoon,
+  faSearch,
   faUser,
-  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -19,10 +18,9 @@ const NavbarAppComponent = () => {
   let user;
   if (localStorage.user) user = JSON.parse(localStorage.user);
 
-
   return (
     <div className="d-flex align-items-start flex-column gap-2 pt-5">
-      <Link data-tooltip="تغير الوضع" className="icon mb-3">
+      <Link data-tooltip="تغير الوضع" className="icon change-mode">
         <FontAwesomeIcon icon={faMoon} />
       </Link>
 
@@ -30,8 +28,12 @@ const NavbarAppComponent = () => {
         <FontAwesomeIcon icon={faHome} />
       </Link>
 
-      <Link data-tooltip="قائمة الطعام" to="/menu" className="icon">
+      <Link data-tooltip="التصنيفات" to="/categories" className="icon">
         <FontAwesomeIcon icon={faBookOpen} />
+      </Link>
+
+      <Link data-tooltip="قايمة الطعام" to="/menu" className="icon">
+        <FontAwesomeIcon icon={faSearch} />
       </Link>
 
       {/* for admin */}

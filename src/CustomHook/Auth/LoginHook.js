@@ -50,7 +50,6 @@ const LoginHook = () => {
 
   const response = useSelector((state) => state.Auth.login);
 
-  console.log(response);
 
   // response and notification
   useEffect(() => {

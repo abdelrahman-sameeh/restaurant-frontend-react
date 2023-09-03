@@ -5,7 +5,7 @@ import AdminAddCategoryPage from "./pages/Admin/AdminAddCategoryPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import CartPage from "./pages/Cart/CartPage";
-import MenuPage from "./pages/Utility/MenuPage";
+import CategoriesPage from "./pages/Utility/CategoriesPage";
 import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage";
 import VerifyResetCodePage from "./pages/Auth/VerifyResetCodePage";
 import SetNewPasswordPage from "./pages/Auth/SetNewPasswordPage";
@@ -31,13 +31,16 @@ import { ToastContainer } from "react-toastify";
 import ChangePasswordPage from "./pages/Auth/ChangePasswordPage";
 import UpdateOneMealPage from "./pages/Meal/UpdateOneMealPage";
 import UserUpdateAddressPage from './pages/User/UserUpdateAddressPage'
-import SidebarComponent from "./components/Home/SidebarComp";
+import MealsInCategoryPage from './pages/Meal/MealsInCategoryPage'
+import SearchPage from './pages/Search/SearchPage'
+import AdminAddUserPage from "./pages/Admin/AdminAddUserPage";
+import AdminGetAllUsersPage from "./pages/Admin/AdminGetAllUsersPage";
+
+// get user
+let user;
+if (localStorage.user) user = JSON.parse(localStorage.user);
 
 const App = () => {
-  // get user
-  let user;
-  if (localStorage.user) user = JSON.parse(localStorage.user);
-
   return (
     <div className="app" id="app">
       {user && user.role === "admin" ? <AdminSidebarComp /> : ""}
@@ -50,8 +53,10 @@ const App = () => {
 
         {/* all */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/categories/:id" element={<MealsInCategoryPage />} />
         <Route path="/meal/:id" element={<SpecificMealPage />} />
+        <Route path="/menu" element={<SearchPage />} />
 
         {/* auth */}
         <Route path="/forgetPassword" element={<ForgetPasswordPage />} />
@@ -66,7 +71,6 @@ const App = () => {
         <Route path="/user/addAddress" element={<UserAddAddress />} />
         <Route path="/user/addresses" element={<UserAddresses />} />
         <Route path="/user/updateAddress/:id" element={<UserUpdateAddressPage />} />
-
         <Route path="/user/favorite" element={<UserFavoritePage />} />
         <Route path="/user/orders" element={<UserOrdersPage />} />
         <Route path="/contactUs" element={<ContactUsPage />} />
@@ -80,6 +84,9 @@ const App = () => {
         <Route path="/admin/addCoupon" element={<AddCouponPage />} />
         <Route path="/admin/getAllCoupons" element={<GetAllCouponsPage />} />
         <Route path="/admin/coupon/:id" element={<UpdateOneCouponPage />} />
+        <Route path="/addAccount" element={<AdminAddUserPage />} />
+        <Route path="/AllAccounts" element={<AdminGetAllUsersPage />} />
+        
 
         {/* delivery */}
         <Route path="/delivery/orders" element={<DeliveryOrdersPage />} />

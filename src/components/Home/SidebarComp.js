@@ -1,8 +1,5 @@
-import { faClipboard } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import MealOrderComp from "./MealOrderComp";
 import GetLoggedUserCartHook from "../../CustomHook/Cart/GetLoggedUserCartHook";
 import MealCartComp from "../Cart/MealCartComp";
 
@@ -18,7 +15,7 @@ const SidebarComponent = () => {
       <div className="mt-4 between ">
         <div className="user-info d-flex gap-1">
           <div
-            style={{ width: "30px", height: "30px" }}
+            style={{ width: "30px", height: "30px", color: 'white' }}
             className="rounded-full avatar text-capitalize fw-bold"
             alt=""
           >

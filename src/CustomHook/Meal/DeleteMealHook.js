@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOneMeal, getListOfMeals } from "../../redux/actions/mealActions";
+import { deleteOneMeal, getListOfMeals, getListOfMealsCategory } from "../../redux/actions/mealActions";
 import { notify } from "../../utils/Notification/useNotification";
 import { renderMatches } from "react-router-dom";
 

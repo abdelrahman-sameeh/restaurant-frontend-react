@@ -33,7 +33,6 @@ const CreateCashOrderHook = () => {
 
   const response = useSelector((state) => state.Order.createCashOrder);
   const renderCart = async () => await dispatch(getLoggedUserCart());
-  console.log(response);
 
   useEffect(() => {
     if (!loading) {

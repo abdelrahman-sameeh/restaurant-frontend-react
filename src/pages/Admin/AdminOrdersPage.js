@@ -1,6 +1,5 @@
 import React from "react";
-import OrderContainer from "../../components/Order/OrderContainer";
-import AdminSidebarComp from "../../components/Admin/AdminSidebarComp";
+import AdminOrderContainer from "../../components/Order/AdminOrderContainer";
 import CurrentLocation from "../../components/Utility/CurrentLocation";
 import { Row } from "react-bootstrap";
 
@@ -12,7 +11,7 @@ const AdminOrdersPage = () => {
           <CurrentLocation current={"ادارة جميع الطلبات"} />
         </div>
       </Row>
-      <OrderContainer />
+      <AdminOrderContainer />
     </div>
   );
 };

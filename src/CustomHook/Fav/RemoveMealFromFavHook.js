@@ -5,7 +5,11 @@ import {
 } from "../../redux/actions/favoriteActions";
 import { useDispatch, useSelector } from "react-redux";
 import { notify } from "../../utils/Notification/useNotification";
-import { getListOfMeals } from "../../redux/actions/mealActions";
+import {
+  getListOfMeals,
+  getListOfMealsCategory,
+  getOneMeal,
+} from "../../redux/actions/mealActions";
 import { getLoggedUserCart } from "../../redux/actions/cartAction";
 
 const RemoveMealFromFavHook = () => {
@@ -23,9 +27,19 @@ const RemoveMealFromFavHook = () => {
   };
 
   const response = useSelector((state) => state.Favorite.deleteMealFromFav);
+
   const renderAllMeals = async () => await dispatch(getListOfMeals());
   const renderFavorite = async () => await dispatch(getLoggedUserFavorite());
   const renderCart = async () => await dispatch(getLoggedUserCart());
+  const renderMealsCategory = async (_) =>
+    await dispatch(
+      getListOfMealsCategory(
+        `page=${localStorage.mealCategoryPaginationNum}&category=${localStorage.mealCategory}`
+      )
+    );
+
+  const renderSpecificMeal = async () =>
+    await dispatch(getOneMeal(localStorage.specificMeal));
 
   useEffect(() => {
     if (!loading) {
@@ -33,6 +47,16 @@ const RemoveMealFromFavHook = () => {
         renderAllMeals();
         renderFavorite();
         renderCart();
+        if (
+          localStorage.mealCategoryPaginationNum &&
+          localStorage.mealCategory
+        ) {
+          renderMealsCategory();
+        }
+
+        if (localStorage.specificMeal) {
+          renderSpecificMeal();
+        }
         return notify("تم الحذف من المفضلة", "success");
       }
       if (response && response.status !== 200 && response.data) {
