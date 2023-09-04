@@ -36,65 +36,83 @@ import MealsInCategoryPage from "./pages/Meal/MealsInCategoryPage";
 import SearchPage from "./pages/Search/SearchPage";
 import AdminAddUserPage from "./pages/Admin/AdminAddUserPage";
 import AdminGetAllUsersPage from "./pages/Admin/AdminGetAllUsersPage";
+import ProtectedRouteHook from "./CustomHook/Auth/ProtectedRouteHook";
+import ProtectRouteComp from "./components/Utility/ProtectRouteComp";
 
 // get user
 let user;
 if (localStorage.user) user = JSON.parse(localStorage.user);
 
 const App = () => {
+  const [isUser, isAdmin, isDelivery, notAuth, isAuth] = ProtectedRouteHook();
+
+
   return (
     <div className="app" id="app">
       {user && user.role === "admin" ? <AdminSidebarComp /> : ""}
       {user && user.role === "user" ? <UserSidebarComp /> : ""}
       {user && user.role === "delivery" ? <DeliverySidebarComp /> : ""}
       <Routes>
-        {/* not auth */}
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-
         {/* all */}
         <Route path="/" element={<HomePage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/categories/:id" element={<MealsInCategoryPage />} />
         <Route path="/meal/:id" element={<SpecificMealPage />} />
         <Route path="/menu" element={<SearchPage />} />
-
-        {/* auth */}
         <Route path="/forgetPassword" element={<ForgetPasswordPage />} />
         <Route path="/verifyResetCode" element={<VerifyResetCodePage />} />
         <Route path="/setNewPassword" element={<SetNewPasswordPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/changePassword" element={<ChangePasswordPage />} />
-        <Route path="/updateUserInfo" element={<UpdateUserInfoPage />} />
+
+        {/* not auth */}
+        <Route element={<ProtectRouteComp auth={notAuth} />}>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
+
+        {/* auth */}
+        <Route element={<ProtectRouteComp auth={isAuth} />}>
+          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/updateUserInfo" element={<UpdateUserInfoPage />} />
+        </Route>
 
         {/* user */}
-        <Route path="/user/cart" element={<CartPage />} />
-        <Route path="/user/addAddress" element={<UserAddAddress />} />
-        <Route path="/user/addresses" element={<UserAddresses />} />
-        <Route
-          path="/user/updateAddress/:id"
-          element={<UserUpdateAddressPage />}
-        />
-        <Route path="/user/favorite" element={<UserFavoritePage />} />
-        <Route path="/user/orders" element={<UserOrdersPage />} />
-        <Route path="/contactUs" element={<ContactUsPage />} />
+        <Route element={<ProtectRouteComp auth={isUser} />}>
+          <Route path="/user/cart" element={<CartPage />} />
+          <Route path="/user/addAddress" element={<UserAddAddress />} />
+          <Route path="/user/addresses" element={<UserAddresses />} />
+          <Route
+            path="/user/updateAddress/:id"
+            element={<UserUpdateAddressPage />}
+          />
+          <Route path="/user/favorite" element={<UserFavoritePage />} />
+          <Route path="/user/orders" element={<UserOrdersPage />} />
+          <Route path="/contactUs" element={<ContactUsPage />} />
+        </Route>
 
         {/* admin */}
-        <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
-        <Route path="/admin/orders" element={<AdminOrdersPage />} />
-        <Route path="/admin/addMeal" element={<AddMealPage />} />
-        <Route path="/meal/update/:id" element={<UpdateOneMealPage />} />
-        <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
-        <Route path="/admin/addCoupon" element={<AddCouponPage />} />
-        <Route path="/admin/getAllCoupons" element={<GetAllCouponsPage />} />
-        <Route path="/admin/coupon/:id" element={<UpdateOneCouponPage />} />
-        <Route path="/addAccount" element={<AdminAddUserPage />} />
-        <Route path="/AllAccounts" element={<AdminGetAllUsersPage />} />
+        <Route element={<ProtectRouteComp auth={isAdmin} />}>
+          <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
+          <Route path="/admin/orders" element={<AdminOrdersPage />} />
+          <Route path="/admin/addMeal" element={<AddMealPage />} />
+          <Route path="/meal/update/:id" element={<UpdateOneMealPage />} />
+          <Route path="/admin/addCategory" element={<AdminAddCategoryPage />} />
+          <Route path="/admin/addCoupon" element={<AddCouponPage />} />
+          <Route path="/admin/getAllCoupons" element={<GetAllCouponsPage />} />
+          <Route path="/admin/coupon/:id" element={<UpdateOneCouponPage />} />
+          <Route path="/addAccount" element={<AdminAddUserPage />} />
+          <Route path="/AllAccounts" element={<AdminGetAllUsersPage />} />
+        </Route>
 
         {/* delivery */}
-        <Route path="/delivery/orders" element={<DeliveryOrdersPage />} />
-        <Route path="/delivery/scanOrder" element={<ScanOrderDeliveryPage />} />
-        <Route path="/changeSSH" element={<ChangeSSHPage />} />
+        <Route element={<ProtectRouteComp auth={isDelivery} />}>
+          <Route path="/delivery/orders" element={<DeliveryOrdersPage />} />
+          <Route
+            path="/delivery/scanOrder"
+            element={<ScanOrderDeliveryPage />}
+          />
+          <Route path="/changeSSH" element={<ChangeSSHPage />} />
+        </Route>
       </Routes>
       <ToastContainer />
     </div>

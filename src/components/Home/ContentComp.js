@@ -14,7 +14,7 @@ const ContentComponent = () => {
       {/* header */}
       <div className="header-app d-flex justify-content-between align-items-center gap-5">
         {user && (
-          <div className="name " style={{ width: "fit-content" }}>
+          <div className="name fw-bold" style={{ width: "fit-content" }}>
             مرحبا {user.name}
           </div>
         )}

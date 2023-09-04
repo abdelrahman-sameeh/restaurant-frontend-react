@@ -76,7 +76,6 @@ const removeActiveClass = (btns, e) => {
 };
 
 // reset un important data in local storage
-localStorage.removeItem("email");
 localStorage.removeItem("page");
 localStorage.removeItem("pagination");
 localStorage.removeItem("adminFilterOrderQuery");

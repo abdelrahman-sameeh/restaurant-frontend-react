@@ -63,9 +63,14 @@ const RenderQReaderHook = () => {
         setSSH('')
         return notify('تم تعديل الطلب بنجاح', 'success')
       }
+      
+      if(response && response.status===400 && response.data.message==='SSH is incorrect'){
+        return notify('الرمز البريدى خطأ', 'error')
+      }
       if(response && response.status!==200 && response.data){
         return notify('حدث خطأ حاول مرة اخرى', 'error')
       }
+
     }
   }, [loading])
 

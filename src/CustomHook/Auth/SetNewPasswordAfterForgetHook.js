@@ -18,6 +18,7 @@ const SetNewPasswordAfterForgetHook = () => {
       email: localStorage.email
     };
 
+
     setIsPress(true);
     setLoading(true);
     await dispatch(changeForgetPassword(data));

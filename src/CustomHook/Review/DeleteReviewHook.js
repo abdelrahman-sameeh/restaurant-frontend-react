@@ -26,10 +26,11 @@ const DeleteReviewHook = () => {
 
   const response = useSelector((state) => state.Review.deleteOneReview);
 
+  console.log(response);
+
   const page = localStorage.reviewPage || 1;
   const renderReview = async () =>
     await dispatch(getListOfReviews(mealId, page));
-
 
   useEffect(() => {
     if (!loading) {
@@ -40,6 +41,8 @@ const DeleteReviewHook = () => {
       if (
         response &&
         response.data &&
+        response.data.error &&
+        response.data.error.length &&
         response.data.error[0].msg == "This review not belong to this user"
       ) {
         return notify("لا يمكنك حذف هذة المراجعة", "error");
