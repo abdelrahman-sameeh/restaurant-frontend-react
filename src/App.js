@@ -25,14 +25,15 @@ import AddCouponPage from "./pages/Coupon/AddCouponPage";
 import GetAllCouponsPage from "./pages/Coupon/GetAllCouponsPage";
 import UpdateOneCouponPage from "./pages/Coupon/UpdateOneCouponPage";
 import DeliveryOrdersPage from "./pages/Delivery/DeliveryOrdersPage";
+import ChangeSSHPage from "./pages/Delivery/ChangeSSHPage";
 import ScanOrderDeliveryPage from "./pages/Delivery/ScanOrderDeliveryPage";
 import DeliverySidebarComp from "./components/Delivery/DeliverySidebarComp";
 import { ToastContainer } from "react-toastify";
 import ChangePasswordPage from "./pages/Auth/ChangePasswordPage";
 import UpdateOneMealPage from "./pages/Meal/UpdateOneMealPage";
-import UserUpdateAddressPage from './pages/User/UserUpdateAddressPage'
-import MealsInCategoryPage from './pages/Meal/MealsInCategoryPage'
-import SearchPage from './pages/Search/SearchPage'
+import UserUpdateAddressPage from "./pages/User/UserUpdateAddressPage";
+import MealsInCategoryPage from "./pages/Meal/MealsInCategoryPage";
+import SearchPage from "./pages/Search/SearchPage";
 import AdminAddUserPage from "./pages/Admin/AdminAddUserPage";
 import AdminGetAllUsersPage from "./pages/Admin/AdminGetAllUsersPage";
 
@@ -65,12 +66,15 @@ const App = () => {
         <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/changePassword" element={<ChangePasswordPage />} />
         <Route path="/updateUserInfo" element={<UpdateUserInfoPage />} />
-        
+
         {/* user */}
         <Route path="/user/cart" element={<CartPage />} />
         <Route path="/user/addAddress" element={<UserAddAddress />} />
         <Route path="/user/addresses" element={<UserAddresses />} />
-        <Route path="/user/updateAddress/:id" element={<UserUpdateAddressPage />} />
+        <Route
+          path="/user/updateAddress/:id"
+          element={<UserUpdateAddressPage />}
+        />
         <Route path="/user/favorite" element={<UserFavoritePage />} />
         <Route path="/user/orders" element={<UserOrdersPage />} />
         <Route path="/contactUs" element={<ContactUsPage />} />
@@ -86,11 +90,11 @@ const App = () => {
         <Route path="/admin/coupon/:id" element={<UpdateOneCouponPage />} />
         <Route path="/addAccount" element={<AdminAddUserPage />} />
         <Route path="/AllAccounts" element={<AdminGetAllUsersPage />} />
-        
 
         {/* delivery */}
         <Route path="/delivery/orders" element={<DeliveryOrdersPage />} />
         <Route path="/delivery/scanOrder" element={<ScanOrderDeliveryPage />} />
+        <Route path="/changeSSH" element={<ChangeSSHPage />} />
       </Routes>
       <ToastContainer />
     </div>

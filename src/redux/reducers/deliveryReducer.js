@@ -3,6 +3,7 @@ import {
   GET_DELIVERY_ORDERS,
   SCAN_QR_CODE,
   SET_ORDER_TO_DELIVERY,
+  UPDATE_SSH,
 } from "../type";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   setOrderToDelivery: [],
   getDeliveryOrders: [],
   scanQrCode: [],
+  updateSSH: [],
 };
 export const deliveryReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -32,6 +34,11 @@ export const deliveryReducer = (state = initialState, action) => {
       return {
         ...state,
         scanQrCode: action.payload,
+      };
+    case UPDATE_SSH:
+      return {
+        ...state,
+        updateSSH: action.payload,
       };
     default:
       return state;

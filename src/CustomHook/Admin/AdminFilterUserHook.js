@@ -6,16 +6,23 @@ const AdminFilterUserHook = () => {
   const [loading, setLoading] = useState(true);
   const [isPress, setIsPress] = useState(false);
   const [role, setRole] = useState("");
+  const [isActive, setIsActive] = useState(true);
   const dispatch = useDispatch();
 
   const handleChangeRole = (e) => {
-    localStorage.removeItem('filterUserQuery')
+    localStorage.removeItem("filterUserQuery");
     setRole(e.target.dataset.role);
+    if (e.target.dataset.isActive == "false") {
+      setIsActive(false);
+    } else {
+      setIsActive(true);
+    }
   };
 
-  const query = `role=${role}&`;
+  const query = `role=${role}&isActive=${isActive}&`;
 
   if (role != "") localStorage.filterUserQuery = query;
+  if (role === "" && !isActive) localStorage.filterUserQuery = `isActive=false&`;
 
   const renderFilterUsers = async () => {
     setLoading(true);
@@ -24,21 +31,23 @@ const AdminFilterUserHook = () => {
     setLoading(false);
     setIsPress(true);
   };
-  const renderAllUsers = async () => {
+  const renderAllUsers = async (query = "") => {
     setLoading(true);
     setIsPress(true);
-    await dispatch(getListOfUsers());
+    await dispatch(getListOfUsers(query));
     setLoading(false);
     setIsPress(false);
   };
 
   useEffect(() => {
-    if (role != "") {
+    if (role != "" && isActive) {
       renderFilterUsers();
-    } else {
+    } else if (role === "" && isActive) {
       renderAllUsers();
+    } else if (role == "" && !isActive) {
+      renderAllUsers(`isActive=false`);
     }
-  }, [role]);
+  }, [role, isActive]);
 
   const response = useSelector((state) => state.Admin.getListOfUsers);
   if (response && response.status === 200) {

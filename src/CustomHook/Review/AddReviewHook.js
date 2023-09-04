@@ -74,6 +74,12 @@ const AddReviewHook = () => {
       ) {
         return notify("غير مسموع لك بترك مراجعة", "error");
       }
+
+      if (
+        response.status===401 
+      ) {
+        return notify("قم بتسجيل الدخول اولا", "error");
+      }
     }
   }, [loading]);
 

@@ -32,6 +32,11 @@ const DeliverySidebarComp = () => {
               مسح باركود
             </Link>
           </li>
+          <li className="border-bottom">
+            <Link className="btn w-100 py-3 fw-bold " to="/profile">
+              الملف الشخصى
+            </Link>
+          </li>
         </ul>
       </div>
     </>

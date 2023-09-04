@@ -87,6 +87,15 @@ const LoginHook = () => {
       ) {
         return notify("خطأ فى البريد الالكترونى او كلمة المرور ", "error");
       }
+
+      if (
+        response.status === 400 &&
+        response.data &&
+        response.data.message === "This email deleted before"
+      ) {
+        return notify(" تم الغاء تفعيل الحساب ", "error");
+      }
+
     }
   }, [loading]);
 

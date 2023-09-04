@@ -39,7 +39,7 @@ const ProfileContainer = () => {
           )}
           {user && (
             <div className="d-flex mt-3 gap-1 flex-wrap">
-              {user && user.role === "user" ? (
+              {user.role === "user" && (
                 <>
                   <Link to="/user/addAddress" className="btn special-btn">
                     اضافة عنوان
@@ -48,8 +48,12 @@ const ProfileContainer = () => {
                     العناوين الشخصية
                   </Link>
                 </>
-              ) : (
-                ""
+              )}
+
+              {user.role === "delivery" && (
+                <Link to="/changeSSH" className="btn special-btn">
+                  تغير رمز التشفير (SSH)
+                </Link>
               )}
               <Link to="/changePassword" className="btn special-btn">
                 تغير كلمة المرور

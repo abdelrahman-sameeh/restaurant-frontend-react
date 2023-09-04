@@ -1,6 +1,7 @@
 {
   "name": "frontend-restaurant-api-21-8-2023",
   "version": "0.1.0",
+  "author": "Abdelrahman Sameeh Gadallah",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

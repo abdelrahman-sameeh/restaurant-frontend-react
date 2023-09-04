@@ -1,6 +1,8 @@
 import {
+  ACTIVE_ACCOUNT,
   CHANGE_FORGET_PASSWORD,
   CHANGE_PASSWORD,
+  DELETE_ACCOUNT,
   FORGET_PASSWORD,
   LOGIN,
   REGISTER,
@@ -14,6 +16,8 @@ const initialState = {
   verifyResetCode: [],
   changeForgetPassword: [],
   changePassword: [],
+  deleteAccount: [],
+  activeAccount: [],
 };
 
 export const AuthReducer = (state = initialState, action) => {
@@ -47,6 +51,16 @@ export const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
         changePassword: action.payload,
+      };
+    case DELETE_ACCOUNT:
+      return {
+        ...state,
+        deleteAccount: action.payload,
+      };
+    case ACTIVE_ACCOUNT:
+      return {
+        ...state,
+        activeAccount: action.payload,
       };
     default:
       return state;

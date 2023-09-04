@@ -1,4 +1,6 @@
 import { useInsertData } from "../../hook/useInsertData";
+import { useDeleteData } from "../../hook/useDeleteData";
+import { useUpdateData } from "../../hook/useUpdateData";
 import {
   CHANGE_FORGET_PASSWORD,
   CHANGE_PASSWORD,
@@ -6,6 +8,8 @@ import {
   LOGIN,
   REGISTER,
   VERIFY_RESET_CODE,
+  DELETE_ACCOUNT,
+  ACTIVE_ACCOUNT,
 } from "../type";
 
 export const register = (data) => {
@@ -96,19 +100,47 @@ export const changeForgetPassword = (data) => {
   };
 };
 
-export const changePassword = (data) => {
-  return async (dispatch) => {
-    try {
-      const response = await useInsertData("/api/v1/changePassword", data);
-      dispatch({
-        type: CHANGE_PASSWORD,
-        payload: response,
-      });
-    } catch (err) {
-      dispatch({
-        type: CHANGE_PASSWORD,
-        payload: err.response,
-      });
-    }
-  };
+export const changePassword = (data) => async (dispatch) => {
+  try {
+    const response = await useInsertData("/api/v1/changePassword", data);
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: response,
+    });
+  } catch (err) {
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: err.response,
+    });
+  }
+};
+
+export const deleteAccount = (id) => async (dispatch) => {
+  try {
+    const response = await useDeleteData(`/api/v1/user/${id}`);
+    dispatch({
+      type: DELETE_ACCOUNT,
+      payload: response,
+    });
+  } catch (err) {
+    dispatch({
+      type: DELETE_ACCOUNT,
+      payload: err.response,
+    });
+  }
+};
+
+export const activeAccount = (id) => async (dispatch) => {
+  try {
+    const response = await useUpdateData(`/api/v1/activeAccount/${id}`);
+    dispatch({
+      type: ACTIVE_ACCOUNT,
+      payload: response,
+    });
+  } catch (err) {
+    dispatch({
+      type: ACTIVE_ACCOUNT,
+      payload: err.response,
+    });
+  }
 };
